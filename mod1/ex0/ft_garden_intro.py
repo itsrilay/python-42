@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-def main():
+def main() -> None:
     """
-    This function stores plant information and displays it.
+    Stores plant information and displays it.
     """
     name = "Rose"
     height = "25cm"

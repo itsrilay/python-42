@@ -2,21 +2,20 @@
 
 class Plant:
     """
-    This class acts as a blueprint for Plant objects.
-
-    It builds those objects through the __init__ method.
-    Example:
-    new_plant = Plant("Sunflower", 30, 60)
+    Acts as a blueprint for Plant objects.
     """
     def __init__(self, name: str, height: int, lifetime: int) -> None:
+        """
+        Constructs a Plant object.
+        """
         self.name = name
         self.height = height
         self.lifetime = lifetime
 
 
-def main():
+def main() -> None:
     """
-    This function creates Plant objects and displays their information.
+    Creates Plant objects and displays their information.
     """
     plant_1 = Plant("Rose", 25, 30)
     plant_2 = Plant("Sunflower", 80, 45)
@@ -29,4 +28,5 @@ def main():
     )
 
 
-main()
+if __name__ == "__main__":
+    main()

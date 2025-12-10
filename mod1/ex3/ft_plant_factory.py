@@ -32,11 +32,17 @@ class Plant:
 
 
 def plant_generator(plants: list[tuple[str, int, int]]):
+    """
+    Generates plant objects, given a list of tuples with plant info
+    """
     for plant in plants:
         yield Plant(plant[0], plant[1], plant[2])
 
 
 def main() -> None:
+    """
+    Orchestrates the generation of plant objects and printing
+    """
     plants = [
         ("Rose", 25, 30),
         ("Oak", 200, 365),

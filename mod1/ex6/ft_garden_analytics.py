@@ -135,7 +135,7 @@ def main() -> None:
     print("=== Garden Management System Demo ===\n")
     manager = GardenManager.create_garden_network(["Alice", "Bob"])
     alice = manager.gardens["Alice"]
-    bob = Garden("Bob")
+    bob = manager.gardens["Bob"]
     alice.add_plant_list(plants_alice)
     bob.add_plant(plant_bob)
     print()

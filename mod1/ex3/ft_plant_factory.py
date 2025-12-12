@@ -33,7 +33,7 @@ class Plant:
 
 def plant_generator(plants: list[tuple[str, int, int]]):
     """
-    Generates plant objects, given a list of tuples with plant info
+    Yields Plant objects from a list of tuples
     """
     for plant in plants:
         yield Plant(plant[0], plant[1], plant[2])

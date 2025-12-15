@@ -24,11 +24,11 @@ class Plant:
         """
         self.lifetime += 1
 
-    def get_info(self) -> None:
+    def __str__(self) -> str:
         """
         Displays the current status of the plant (name, height, age).
         """
-        print(f"{self.name}: {self.height}cm, {self.lifetime} days old")
+        return f"{self.name} ({self.height}cm, {self.lifetime} days)"
 
 
 def plant_generator(plants: list[tuple[str, int, int]]):
@@ -52,8 +52,8 @@ def main() -> None:
     ]
     total = 0
     print("=== Plant Factory Output ===")
-    for plt in plant_generator(plants):
-        print(f"Created: {plt.name} ({plt.height}cm, {plt.lifetime} days)")
+    for plant in plant_generator(plants):
+        print(f"Created: {plant}")
         total += 1
     print(f"\nTotal plants created: {total}")
 

@@ -24,51 +24,11 @@ class Plant:
         """
         self.lifetime += 1
 
-    def get_info(self) -> None:
+    def __str__(self) -> str:
         """
         Displays the current status of the plant (name, height, age).
         """
-        print(f"{self.name}: {self.height}cm, {self.lifetime} days old")
-
-
-def simulate_plants(plants: list[Plant]) -> None:
-    """
-    Simulates growth for a list of plants over a period of days.
-
-    Each day, every plant grows and ages.
-    """
-    day = 1
-    while day < 7:
-        for plant in plants:
-            plant.grow()
-            plant.age()
-        day += 1
-
-
-def init_week(plants: list[Plant]) -> None:
-    """
-    Displays the initial status of all plants on Day 1.
-    """
-    print("=== Day 1 ===")
-    for plant in plants:
-        plant.get_info()
-
-
-def end_week(plants: list[Plant], init_heights: list[int]) -> None:
-    """
-    Displays the final status on Day 7 and calculates weekly growth.
-
-    Args:
-        plants: The list of Plant objects after simulation.
-        init_heights: A list of integers representing starting heights.
-    """
-    print("=== Day 7 ===")
-    i = 0
-    for plant in plants:
-        growth = plant.height - init_heights[i]
-        plant.get_info()
-        print(f"Growth this week: +{growth}cm")
-        i += 1
+        return f"{self.name}: {self.height}cm, {self.lifetime} days old"
 
 
 def main() -> None:
@@ -83,9 +43,22 @@ def main() -> None:
         Plant("Cactus", 15, 120)
     ]
     init_heights = [plant.height for plant in plants]
-    init_week(plants)
-    simulate_plants(plants)
-    end_week(plants, init_heights)
+    print("=== Day 1 ===")
+    for plant in plants:
+        print(plant)
+    day = 1
+    while day < 7:
+        for plant in plants:
+            print(plant.grow())
+            print(plant.age())
+        day += 1
+    print("=== Day 7 ===")
+    i = 0
+    for plant in plants:
+        growth = plant.height - init_heights[i]
+        print(plant)
+        print(f"Growth this week: +{growth}cm")
+        i += 1
 
 
 if __name__ == "__main__":

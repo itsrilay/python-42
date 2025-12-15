@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 class Plant:
     """
     Acts as a blueprint for all plant types.
@@ -10,13 +12,12 @@ class Plant:
         self.height = height
         self.age = age
 
-    def get_info(self) -> None:
+    def __str__(self) -> str:
         """
         Displays the base information (name, type, height, age).
         """
-        class_name = self.__class__.__name__
-        print(f"{self.name}, ({class_name}): "
-              f"{self.height}cm, {self.age} days, ", end="")
+        cls_name = self.__class__.__name__
+        return f"{self.name} ({cls_name}): {self.height}cm, {self.age} days, "
 
 
 class Flower(Plant):
@@ -30,18 +31,18 @@ class Flower(Plant):
         super().__init__(name, height, age)
         self.color = color
 
-    def bloom(self) -> None:
+    def bloom(self) -> str:
         """
         Simulates the flower blooming.
         """
-        print(f"{self.name} is blooming beautifully!")
+        return f"{self.name} is blooming beautifully!"
 
-    def get_info(self) -> None:
+    def __str__(self) -> str:
         """
-        Extends parent get_info to display color.
+        Extends parent __str__ to display color.
         """
-        super().get_info()
-        print(f"{self.color} color")
+        base = super().__str__()
+        return base + f"{self.color} color"
 
 
 class Tree(Plant):
@@ -61,19 +62,19 @@ class Tree(Plant):
         super().__init__(name, height, age)
         self.trunk_diameter = trunk_diameter
 
-    def produce_shade(self) -> None:
+    def produce_shade(self) -> str:
         """
         Calculates and displays the shade produced based on height.
         """
         shade = self.height * 0.4
-        print(f"{self.name} provides {shade:0n} square meters of shade")
+        return f"{self.name} provides {shade:0n} square meters of shade"
 
-    def get_info(self) -> None:
+    def __str__(self) -> str:
         """
-        Extends parent get_info to display trunk diameter.
+        Extends parent __str__ to display trunk diameter.
         """
-        super().get_info()
-        print(f"{self.trunk_diameter}cm diameter")
+        base = super().__str__()
+        return base + f"{self.trunk_diameter}cm diameter"
 
 
 class Vegetable(Plant):
@@ -95,26 +96,18 @@ class Vegetable(Plant):
         self.harvest_season = harvest_season
         self.nutritional_value = nutritional_value
 
-    def show_benefits(self) -> None:
+    def show_benefits(self) -> str:
         """
         Displays the nutritional benefits of the vegetable.
         """
-        print(f"{self.name} is rich in {self.nutritional_value}")
+        return f"{self.name} is rich in {self.nutritional_value}"
 
-    def get_info(self) -> None:
+    def __str__(self) -> str:
         """
-        Extends parent get_info to display harvest season.
+        Extends parent __str__ to display harvest season.
         """
-        super().get_info()
-        print(f"{self.harvest_season} harvest")
-
-
-def plant_generator(plants: list[tuple[str, int, int]]):
-    """
-    Yields Plant objects from a list of tuples
-    """
-    for plant in plants:
-        yield Plant(plant[0], plant[1], plant[2])
+        base = super().__str__()
+        return base + f"{self.harvest_season} harvest"
 
 
 def flower_generator(flowers: list[tuple[str, int, int, str]]):
@@ -159,16 +152,16 @@ def main() -> None:
     ]
     print("=== Garden Plant Types ===\n")
     for flower in flower_generator(flowers):
-        flower.get_info()
-        flower.bloom()
+        print(flower)
+        print(flower.bloom())
         print()
     for tree in tree_generator(trees):
-        tree.get_info()
-        tree.produce_shade()
+        print(tree)
+        print(tree.produce_shade())
         print()
     for vege in vegetable_generator(vegetables):
-        vege.get_info()
-        vege.show_benefits()
+        print(vege)
+        print(vege.show_benefits())
         print()
     print("==========================")
 

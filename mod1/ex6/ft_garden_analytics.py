@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 class Plant:
     """
     Acts as a blueprint for Plant objects.
@@ -10,16 +12,21 @@ class Plant:
         self.height = height
         self.growth_amount = 0
 
-    def grow(self) -> None:
+    def grow(self) -> str:
+        """
+        Increases the plant's height by 1 unit.
+
+        Tracks plant's total growth.
+        """
         self.height += 1
         self.growth_amount += 1
-        print(f"{self.name} grew 1cm")
+        return f"{self.name} grew 1cm"
 
-    def get_info(self) -> None:
+    def __str__(self) -> str:
         """
         Displays the base information (name, type, height, age).
         """
-        print(f"- {self.name}: {self.height}cm", end="")
+        return f"- {self.name}: {self.height}cm"
 
 
 class FloweringPlant(Plant):
@@ -27,12 +34,20 @@ class FloweringPlant(Plant):
     Acts as a blueprint for FloweringPlant objects.
     """
     def __init__(self, name: str, height: int, color: str) -> None:
+        """
+        Calls parent __init__ method for common attributes.
+
+        Initializes color attribute.
+        """
         super().__init__(name, height)
         self.color = color
 
-    def get_info(self) -> None:
-        super().get_info()
-        print(f", {self.color} flowers (blooming)", end="")
+    def __str__(self) -> str:
+        """
+        Extends parent __str__ to display color.
+        """
+        base = super().__str__()
+        return base + f", {self.color} flowers (blooming)"
 
 
 class PrizeFlower(FloweringPlant):
@@ -40,33 +55,44 @@ class PrizeFlower(FloweringPlant):
     Acts as a blueprint for PrizeFlower objects.
     """
     def __init__(self, name: str, height: int, color: str, prize: int) -> None:
+        """
+        Calls parent __init__ method for common attributes.
+
+        Initializes prize attribute.
+        """
         super().__init__(name, height, color)
         self.prize = prize
 
-    def get_info(self) -> None:
-        super().get_info()
-        print(f", Prize points: {self.prize}", end="")
+    def __str__(self) -> str:
+        """
+        Extends parent __str__ to display prize points.
+        """
+        base = super().__str__()
+        return base + f", Prize points: {self.prize}"
 
 
 class Garden:
+    """
+    Acts as a blueprint for Garden objects.
+    """
     def __init__(self, owner: str) -> None:
+        """
+        Initializes attributes for Garden objects.
+        """
         self.owner = owner
         self.plants: list[Plant] = []
 
-    def add_plant(self, plant: Plant) -> None:
+    def add_plant(self, plant: Plant) -> str:
+        """
+        Adds a Plant object to the Garden plants list.
+        """
         self.plants.append(plant)
-        print(f"Added {plant.name} to {self.owner}'s garden")
-
-    def add_plant_list(self, plants: list[Plant]) -> None:
-        for plant in plants:
-            self.add_plant(plant)
-
-    def grow_all(self) -> None:
-        print(f"{self.owner} is helping all plants grow...")
-        for plant in self.plants:
-            plant.grow()
+        return f"Added {plant.name} to {self.owner}'s garden"
 
     def get_score(self) -> int:
+        """
+        Calculates score for a Garden plants list.
+        """
         score = 0
         for plant in self.plants:
             score += plant.height
@@ -78,14 +104,32 @@ class Garden:
 
 
 class GardenManager:
+    """
+    Acts as a blueprint for GardenManager objects.
+
+    Manages list of Garden objects.
+    """
     def __init__(self) -> None:
+        """
+        Initializes an empty dictionary to store Garden objects.
+
+        str - Owner name.
+        Garden - Garden object.
+        """
         self.gardens: dict[str, Garden] = {}
 
     def add_garden(self, garden: Garden) -> None:
+        """
+        Adds Garden object to dictionary.
+        """
         self.gardens[garden.owner] = garden
 
     @classmethod
-    def create_garden_network(cls, owners: list[str]):
+    def create_garden_network(cls, owners: list[str]) -> "GardenManager":
+        """
+        Creates a garden network by initializing a GardenManager object.
+        Creates Garden objects to add to the GardenManager dictionary.
+        """
         manager = GardenManager()
         for owner in owners:
             garden = Garden(owner)
@@ -93,13 +137,21 @@ class GardenManager:
         return manager
 
     class GardenStats:
-
+        """
+        Calculates Garden statistics.
+        """
         @staticmethod
         def count_plants(plants: list[Plant]) -> int:
+            """
+            Calculates number of Plant objects in a list.
+            """
             return len(plants)
 
         @staticmethod
         def get_plant_types(plants: list[Plant]) -> dict[str, int]:
+            """
+            Calculates number of instances for different Plant types.
+            """
             counts = {"Regular": 0, "Flowering": 0, "Prize": 0}
             for plant in plants:
                 if isinstance(plant, PrizeFlower):
@@ -112,6 +164,9 @@ class GardenManager:
 
         @staticmethod
         def get_total_growth(plants: list[Plant]) -> int:
+            """
+            Calculates total growth in a Plant object list.
+            """
             total_growth = 0
             for plant in plants:
                 total_growth += plant.growth_amount
@@ -119,6 +174,9 @@ class GardenManager:
 
 
 def height_check(plants: list[Plant]) -> bool:
+    """
+    Checks for valid height value (> 0)
+    """
     for plant in plants:
         if plant.height <= 0:
             return False
@@ -126,6 +184,11 @@ def height_check(plants: list[Plant]) -> bool:
 
 
 def main() -> None:
+    """
+    Orchestrates the creation of the garden network.
+
+    Displays statistics and score.
+    """
     plants_alice: list[Plant] = [
         Plant("Oak Tree", 100),
         FloweringPlant("Rose", 25,  "red"),
@@ -136,16 +199,18 @@ def main() -> None:
     manager = GardenManager.create_garden_network(["Alice", "Bob"])
     alice = manager.gardens["Alice"]
     bob = manager.gardens["Bob"]
-    alice.add_plant_list(plants_alice)
+    for plant in plants_alice:
+        print(alice.add_plant(plant))
     bob.add_plant(plant_bob)
     print()
-    alice.grow_all()
+    print("Alice is helping all plants grow...")
+    for plant in alice.plants:
+        print(plant.grow())
     print()
     print("=== Alice's Garden Report ===")
     print("Plants in garden:")
     for plant in alice.plants:
-        plant.get_info()
-        print()
+        print(plant)
     print()
     plant_count = GardenManager.GardenStats.count_plants(alice.plants)
     plant_growth = GardenManager.GardenStats.get_total_growth(alice.plants)

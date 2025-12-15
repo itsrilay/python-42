@@ -24,7 +24,7 @@ class Plant:
         """
         self.lifetime += 1
 
-    def __str__(self) -> str:
+    def get_info(self) -> str:
         """
         Displays the current status of the plant (name, height, age).
         """
@@ -45,18 +45,18 @@ def main() -> None:
     init_heights = [plant.height for plant in plants]
     print("=== Day 1 ===")
     for plant in plants:
-        print(plant)
+        print(plant.get_info())
     day = 1
     while day < 7:
         for plant in plants:
-            print(plant.grow())
-            print(plant.age())
+            plant.grow()
+            plant.age()
         day += 1
     print("=== Day 7 ===")
     i = 0
     for plant in plants:
         growth = plant.height - init_heights[i]
-        print(plant)
+        print(plant.get_info())
         print(f"Growth this week: +{growth}cm")
         i += 1
 

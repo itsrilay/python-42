@@ -11,8 +11,8 @@ def garden_operations(test: str) -> None:
     elif test == "FileNotFoundError":
         open("missing.txt")
     elif test == "KeyError":
-        dict = {}
-        dict["missing\\_plant"]
+        plant_dict = {}
+        plant_dict["missing\\_plant"]
 
 
 def test_error_types() -> None:

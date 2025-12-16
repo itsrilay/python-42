@@ -12,7 +12,7 @@ def garden_operations(test: str) -> None:
         open("missing.txt")
     elif test == "KeyError":
         plant_dict = {}
-        plant_dict["missing\\_plant"]
+        plant_dict["missing_plant"]
 
 
 def test_error_types() -> None:
@@ -34,10 +34,10 @@ def test_error_types() -> None:
             print("Caught ValueError: invalid literal for int()\n")
         except ZeroDivisionError:
             print("Caught ZeroDivisionError: division by zero\n")
-        except FileNotFoundError:
-            print("Caught FileNotFoundError: No such file 'missing.txt'\n")
-        except KeyError:
-            print("Caught KeyError: 'missing\\_plant'\n")
+        except FileNotFoundError as e:
+            print(f"Caught FileNotFoundError: No such file '{e.filename}'\n")
+        except KeyError as e:
+            print(f"Caught KeyError: {e}\n")
     print("Testing multiple errors together...")
     try:
         garden_operations(errors[0])

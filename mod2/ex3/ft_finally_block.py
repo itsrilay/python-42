@@ -13,7 +13,7 @@ def water_plants(plant_list: list[object]) -> None:
             # Will raise exception on a non-str value
             print("Watering " + plant)  # type: ignore
     except TypeError:
-        print(f"Error: Cannot water plant {plant} - invalid plant!")
+        print(f"Error: Cannot water {plant} - invalid plant!")
     finally:
         print("Closing watering system (cleanup)")
 

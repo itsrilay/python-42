@@ -6,14 +6,14 @@ def water_plants(plant_list: list[object]) -> None:
 
     Raises error when plant isn't a str and handles it. Ensures cleanup.
     """
+    plant = None
     try:
         print("Opening watering system")
         for plant in plant_list:
-            if not isinstance(plant, str):
-                raise ValueError(f"Cannot water {plant} - invalid plant!")
-            print(f"Watering {plant}")
-    except (ValueError, TypeError) as e:
-        print(f"Error: {e}")
+            # Will raise exception on a non-str value
+            print("Watering " + plant)  # type: ignore
+    except TypeError:
+        print(f"Error: Cannot water plant {plant} - invalid plant!")
     finally:
         print("Closing watering system (cleanup)")
 

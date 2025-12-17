@@ -18,7 +18,7 @@ def water_plants(plant_list: list[object]) -> None:
         print("Closing watering system (cleanup)")
 
 
-def test_watering_system():
+def test_watering_system() -> None:
     """
     Tests the watering system with valid and invalid lists.
     """

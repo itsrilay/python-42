@@ -36,7 +36,7 @@ class SecurePlant:
 
         Checks if height is valid (>= 0)
         """
-        if (height < 0):
+        if height < 0:
             return (
                 f"Invalid operation attempted: height {height}cm [REJECTED]\n"
                 + "Security: Negative height rejected"
@@ -51,7 +51,7 @@ class SecurePlant:
 
         Checks if age is valid (>= 0)
         """
-        if (age < 0):
+        if age < 0:
             return (
                 f"Invalid operation attempted: age {age} days [REJECTED]\n"
                 + "Security: Negative age rejected"

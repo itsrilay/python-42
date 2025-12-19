@@ -2,7 +2,7 @@
 
 def stream_events(n_events: int):
     """
-    Yields a str simulating an event, a total of n_events times
+    Yields a str simulating an event, a total of n_events times.
     """
     names = ["alice", "bob", "charlie"]
     actions = ["killed monster", "found treasure", "leveled up"]
@@ -16,7 +16,7 @@ def stream_events(n_events: int):
 
 def fibonnaci_gen(n: int):
     """
-    Yields the fibonnaci sequence of length n
+    Yields the fibonnaci sequence of length n.
     """
     a, b = 0, 1
     for _ in range(n):
@@ -26,7 +26,7 @@ def fibonnaci_gen(n: int):
 
 def prime_gen(n: int):
     """
-    Yields the prime number sequence of length n
+    Yields the prime number sequence of length n.
     """
     prime_count = 0
     num = 2
@@ -44,7 +44,7 @@ def prime_gen(n: int):
 
 def print_demo() -> None:
     """
-    Displays a demo of fibonnaci and prime sequence generators
+    Displays a demo of fibonnaci and prime sequence generators.
     """
     print("Fibonacci sequence (first 10): ", end="")
     i = 0
@@ -66,7 +66,7 @@ def print_demo() -> None:
 
 def main() -> None:
     """
-    Orchestrates the generation, analytics and display of events
+    Orchestrates the generation, analytics and display of events.
 
     Displays generator demo.
     """

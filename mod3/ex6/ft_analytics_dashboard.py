@@ -50,7 +50,7 @@ def main() -> None:
 
     unique_achievements = {achievement for achievement in all_achievements}
 
-    print(sorted(unique_achievements))
+    print(f"Unique achievements: {unique_achievements}")
 
     print("\n=== Combined Analysis ===")
 
@@ -58,14 +58,14 @@ def main() -> None:
     total_score = sum([score for _, score in players])
     max_score = max([score for _, score in players])
     avg_score = total_score / total_players
-    top_scorer = [(name, score)
+    top_scorer = [f"{name} ({score} points)"
                   for name, score in players if score == max_score]
 
     print(f"Total players: {total_players}")
     print(f"Total score: {total_score}")
     print(f"Average score: {avg_score}")
     print(f"Total unique achievements: {len(unique_achievements)}")
-    print(f"Top scorer: {top_scorer}")
+    print(f"Top scorer: {top_scorer[0]}")
 
 
 if __name__ == "__main__":

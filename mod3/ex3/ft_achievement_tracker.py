@@ -44,7 +44,7 @@ def main() -> None:
 
     common_achievements = alice.intersection(bob, charlie)
 
-    print(f"Common to all players: {common_achievements}")
+    print(f"\nCommon to all players: {common_achievements}")
 
     alice_unique = alice.difference(bob, charlie)
     bob_unique = bob.difference(alice, charlie)

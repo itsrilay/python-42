@@ -34,8 +34,8 @@ def print_inventory(inventory: dict[str, dict[str, str | int]]) -> None:
         final_str += f"{category} ({qty})"
         i += 1
 
-    print(f"Inventory value: {total_value}")
-    print(f"Item count: {total_count}")
+    print(f"\nInventory value: {total_value} gold")
+    print(f"Item count: {total_count} items")
     print(f"Categories: {final_str}")
 
 

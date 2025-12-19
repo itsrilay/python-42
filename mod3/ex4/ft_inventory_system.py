@@ -39,7 +39,11 @@ def print_inventory(inventory: dict[str, dict[str, str | int]]) -> None:
     print(f"Categories: {final_str}")
 
 
-def transfer_item(source, target, item_name, quantity) -> None:
+def transfer_item(
+        source: dict[str, dict[str, str | int]],
+        target: dict[str, dict[str, str | int]],
+        item_name: str,
+        quantity: int) -> None:
     """
     Transfers item from source to target inventory.
     """

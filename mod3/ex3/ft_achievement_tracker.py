@@ -2,7 +2,9 @@
 
 def main() -> None:
     """
-    Orchestrates the achievement tracking and displaying.
+    Orchestrates the achievement tracking.
+
+    Displays achievements.
     """
     print("=== Achievement Tracker System ===\n")
 

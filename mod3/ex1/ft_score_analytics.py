@@ -4,6 +4,9 @@ import sys
 
 
 def main() -> None:
+    """
+    Processes scores and displays them.
+    """
     print("=== Player Score Analytics ===")
     scores: list[int] = []
     arg = None

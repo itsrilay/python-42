@@ -15,7 +15,11 @@ def process_coordinates(coord_str: str) -> tuple[float, float, float] | None:
 
         coords = (float(str_x), float(str_y), float(str_z))
 
-        display_coords = tuple(int(c) if c == int(c) else c for c in coords)
+        x, y, z = coords
+        d_x = int(x) if x == int(x) else x
+        d_y = int(y) if y == int(y) else y
+        d_z = int(z) if z == int(z) else z
+        display_coords = (d_x, d_y, d_z)
 
         print(f"Position created: {display_coords}")
 

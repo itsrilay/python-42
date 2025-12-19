@@ -26,15 +26,12 @@ def print_inventory(inventory: dict[str, dict[str, str | int]]) -> None:
             f"{data['qty'] * data['price']} gold"
         )
 
-    categories_arr = [
-        f"{category} ({qty})" for category, qty in total_categories.items()
-    ]
     final_str = ""
     i = 0
-    while i < len(categories_arr):
-        final_str += categories_arr[i]
-        if i < len(categories_arr) - 1:
+    for category, qty in total_categories.items():
+        if i > 0:
             final_str += ", "
+        final_str += f"{category} ({qty})"
         i += 1
 
     print(f"Inventory value: {total_value}")

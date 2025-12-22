@@ -2,13 +2,15 @@
 
 def main() -> None:
     """
-    Writes to 'new_discovery.txt' in write mode.
+    Writes to a new file in write mode.
     """
     print("=== CYBER ARCHIVES - PRESERVATION SYSTEM ===")
 
-    print("\nInitializing new storage unit: new_discovery.txt")
+    filename = "new_discovery.txt"
 
-    file = open("new_discovery.txt", "w")
+    print(f"\nInitializing new storage unit: {filename}")
+
+    file = open(filename, "w")
 
     print("Storage unit created successfully...")
     print("\nInscribing preservation data...")
@@ -24,7 +26,7 @@ def main() -> None:
     file.close()
 
     print("\nData inscription complete. Storage unit sealed.")
-    print("Archive 'new_discovery.txt' ready for long-term preservation.")
+    print(f"Archive '{filename}' ready for long-term preservation.")
 
 
 if __name__ == "__main__":

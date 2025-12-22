@@ -7,15 +7,16 @@ def main() -> None:
     Catches FileNotFoundError if file doesn't exist.
     """
     print("=== CYBER ARCHIVES - DATA RECOVERY SYSTEM ===")
-    print("\nAccessing Storage Vault: ancient_fragment.txt")
+    filename = "ancient_fragment.txt"
+    print(f"\nAccessing Storage Vault: {filename}")
     try:
-        file = open("ancient_fragment.txt", "r")
+        file = open(filename, "r")
         print("Connection established...")
         print("\nRECOVERED DATA:")
         print(file.read())
         file.close()
     except FileNotFoundError:
-        print("ERROR: Storage vault not found.")
+        print("ERROR: Storage vault not found. Run data generator first.")
     print("\nData recovery complete. Storage unit disconnected.")
 
 

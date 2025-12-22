@@ -2,26 +2,25 @@
 
 def main() -> None:
     """
-    Reads from 'classified_vault.txt'.
-    Writes acquired data to 'security_protocols.txt'
+    Reads from file and writes new data to another file.
     """
     print("=== CYBER ARCHIVES - VAULT SECURITY SYSTEM ===")
+    filename_read = "classified_data.txt"
+    filename_write = "security_protocols.txt"
     print("\nInitiating secure vault access...")
-    with open("classified_vault.txt", "r") as file_src:
+    with open(filename_read, "r") as file:
         print("Vault connection established with failsafe protocols")
         print("\nSECURE EXTRACTION:")
 
-        text = file_src.read()
+        print(file.read())
 
-        print("[CLASSIFIED] Quantum encryption keys recovered")
-        print("[CLASSIFIED] Archive integrity: 100%")
+    with open(filename_write, "w") as file:
+        print("\nSECURE PRESERVATION:")
 
-        with open("security_protocols.txt", "w") as file_dest:
-            print("\nSECURE PRESERVATION:")
+        file.write("[CLASSIFIED] New security protocols archived")
 
-            file_dest.write(text)
+        print("[CLASSIFIED] New security protocols archived")
 
-            print("[CLASSIFIED] New security protocols archived")
     print("Vault automatically sealed upon completion")
     print("\nAll vault operations completed with maximum security.")
 

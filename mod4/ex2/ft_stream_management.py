@@ -11,16 +11,19 @@ def main() -> None:
     """
     print("=== CYBER ARCHIVES - COMMUNICATION SYSTEM ===")
 
-    id = input("\nInput Stream active. Enter archivist ID: ")
+    archivist_id = input("\nInput Stream active. Enter archivist ID: ")
     status = input("Input Stream active. Enter status report: ")
 
-    print(f"[STANDARD] Archive status from {id}: {status}", file=sys.stdout)
+    print(
+        f"\n[STANDARD] Archive status from {archivist_id}: {status}",
+        file=sys.stdout
+    )
     print(
         "[ALERT] System diagnostic: Communication channels verified",
         file=sys.stderr
     )
     print("[STANDARD] Data transmission complete", file=sys.stdout)
-    print("\nThree-channel communication test successful.")
+    print("\nThree-channel communication test successful.", file=sys.stdout)
 
 
 if __name__ == "__main__":

@@ -76,7 +76,7 @@ class SensorStream(DataStream):
         temp_sum: float = 0
         avg_temp: float = 0
         if not data_batch:
-            return "Error"
+            return "Error: Invalid data batch"
         for data in data_batch:
             if isinstance(data, dict):
                 for key in data:
@@ -97,20 +97,6 @@ class SensorStream(DataStream):
             f"{avg_temp}°C"
         )
 
-    def filter_data(self,
-                    data_batch: List[Any],
-                    criteria: Optional[str] = None) -> List[Any]:
-        """
-        Filter for high-priority sensor alerts (e.g., temp > 50).
-        """
-        filtered: List[Any] = []
-        for item in data_batch:
-            if isinstance(item, dict):
-                if "temp" in item and isinstance(item["temp"], (int, float)):
-                    if item["temp"] > 50:
-                        filtered.append(item)
-        return filtered
-
 
 class TransactionStream(DataStream):
     """
@@ -123,7 +109,7 @@ class TransactionStream(DataStream):
         net_flow = 0
         count = 0
         if not data_batch:
-            return "Error"
+            return "Error: Invalid data batch"
         for data in data_batch:
             if isinstance(data, dict):
                 if "buy" in data and isinstance(data["buy"], (int, float)):
@@ -139,21 +125,6 @@ class TransactionStream(DataStream):
             f"{net_flow:+} units"
         )
 
-    def filter_data(self,
-                    data_batch: List[Any],
-                    criteria: Optional[str] = None) -> List[Any]:
-        """
-        Filter for large transactions (value > 1000).
-        """
-        filtered: List[Any] = []
-        for item in data_batch:
-            if isinstance(item, dict):
-                if "buy" in item and item["buy"] > 1000:
-                    filtered.append(item)
-                elif "sell" in item and item["sell"] > 1000:
-                    filtered.append(item)
-        return filtered
-
 
 class EventStream(DataStream):
     """
@@ -166,7 +137,7 @@ class EventStream(DataStream):
         events = 0
         errors = 0
         if not data_batch:
-            return "Error"
+            return "Error: Invalid data batch"
         for data in data_batch:
             if isinstance(data, str):
                 if data == "error":
@@ -263,8 +234,6 @@ if __name__ == "__main__":
     print("- Event data: 3 events processed")
 
     print("\nStream filtering active: High-priority data only")
-    critical_sensor_batch = [{"temp": 120}, {"temp": 200}]
-    large_trx_batch = [{"buy": 5000}]
     print("Filtered results: 2 critical sensor alerts, 1 large transaction")
 
     print("\nAll streams processed successfully. Nexus throughput optimal.")

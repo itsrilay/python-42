@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+"""
+Exercise 0: Data Processor Foundation
+This module establishes the foundation for the data processing system.
+It defines an abstract DataProcessor class and specialized subclasses
+(Numeric, Text, Log) to demonstrate method overriding and basic polymorphism.
+"""
+
 from typing import Any, List
 from abc import ABC, abstractmethod
 
@@ -7,29 +14,48 @@ from abc import ABC, abstractmethod
 class DataProcessor(ABC):
     """
     Abstract base class for processing different types of data streams.
+
     Defines the interface that all specialized processors must follow.
     """
 
     @abstractmethod
     def process(self, data: Any) -> str:
         """
-        Processes the input data and returns a result string.
+        Process the input data and return a result string.
         Must be implemented by subclasses.
+
+        Args:
+            data: The input data to be processed.
+
+        Returns:
+            A formatted string containing the processing results.
         """
         pass
 
     @abstractmethod
     def validate(self, data: Any) -> bool:
         """
-        Validates if the input data is appropriate for this processor.
+        Validate if the input data is appropriate for this processor.
         Must be implemented by subclasses.
+
+        Args:
+            data: The input data to check.
+
+        Returns:
+            True if the data is valid for this processor, False otherwise.
         """
         pass
 
     def format_output(self, result: str) -> str:
         """
-        Formats the processing result.
+        Format the processing result.
         Default implementation returns the result unchanged.
+
+        Args:
+            result: The raw result string from the process method.
+
+        Returns:
+            The formatted output string.
         """
         return result
 
@@ -41,8 +67,14 @@ class NumericProcessor(DataProcessor):
 
     def process(self, data: Any) -> str:
         """
-        Calculates count, sum, and average of a numeric list.
-        Returns a formatted string with these statistics.
+        Calculate count, sum, and average of a numeric list.
+
+        Args:
+            data: A list of numbers (integers or floats).
+
+        Returns:
+            A formatted string with count, sum, and average stats.
+            Returns "Error" if the data is empty or invalid.
         """
         if not data:
             return "Error"
@@ -56,7 +88,13 @@ class NumericProcessor(DataProcessor):
 
     def validate(self, data: Any) -> bool:
         """
-        Checks if data is a list containing only integers or floats.
+        Check if data is a list containing only integers or floats.
+
+        Args:
+            data: The input data to validate.
+
+        Returns:
+            True if data is a list of numbers, False otherwise.
         """
         if not data.__class__ == list:
             return False
@@ -73,8 +111,13 @@ class TextProcessor(DataProcessor):
 
     def process(self, data: Any) -> str:
         """
-        Counts characters and words in the text.
-        Returns a formatted string with these counts.
+        Count characters and words in the text.
+
+        Args:
+            data: The input string to analyze.
+
+        Returns:
+            A formatted string with character and word counts.
         """
         char_count = 0
         word_count = 0
@@ -91,7 +134,13 @@ class TextProcessor(DataProcessor):
 
     def validate(self, data: Any) -> bool:
         """
-        Checks if data is a string.
+        Check if data is a valid string.
+
+        Args:
+            data: The input data to validate.
+
+        Returns:
+            True if data is a string, False otherwise.
         """
         if not data.__class__ == str:
             return False
@@ -105,7 +154,13 @@ class LogProcessor(DataProcessor):
 
     def validate(self, data: Any) -> bool:
         """
-        Checks if data is a string and contains a colon separator.
+        Check if data is a string and contains a colon separator.
+
+        Args:
+            data: The input data to validate.
+
+        Returns:
+            True if data is a string containing ':', False otherwise.
         """
         if data.__class__ == str and ":" in data:
             return True
@@ -113,8 +168,13 @@ class LogProcessor(DataProcessor):
 
     def process(self, data: Any) -> str:
         """
-        Parses the log level and message.
-        Handles unknown levels gracefully.
+        Parse the log level and message.
+
+        Args:
+            data: A log string in the format "LEVEL: Message".
+
+        Returns:
+            A formatted string with a tag (e.g., [ALERT]) and the message.
         """
         level_dict = {
             "ERROR": "[ALERT]",

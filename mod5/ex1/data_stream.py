@@ -15,7 +15,7 @@ class DataStream(ABC):
     """
     Abstract base class representing a generic data stream.
     """
-    def __init__(self, stream_id: str):
+    def __init__(self, stream_id: str) -> None:
         """
         Initialize the data stream.
 
@@ -184,7 +184,7 @@ class StreamProcessor():
     """
     Manager class that handles multiple polymorphic data streams.
     """
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the processor with an empty stream registry."""
         self.streams: Dict[str, DataStream] = {}
 

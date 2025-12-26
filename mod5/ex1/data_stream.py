@@ -75,17 +75,18 @@ class SensorStream(DataStream):
         temp_count = 0
         temp_sum: float = 0
         avg_temp: float = 0
+
         if not data_batch:
             return "Error: Invalid data batch"
+
         for data in data_batch:
             if isinstance(data, dict):
-                for key in data:
-                    value = data[key]
-                    if isinstance(value, (int, float)):
-                        if key == "temp":
-                            temp_sum += value
-                            temp_count += 1
-                        count += 1
+                value = data.get("temp")
+                if isinstance(value, (int, float)):
+                    temp_sum += value
+                    temp_count += 1
+                count += 1
+
         if count == 0:
             return "Error: No sensor data found"
         try:
@@ -108,16 +109,22 @@ class TransactionStream(DataStream):
         """
         net_flow = 0
         count = 0
+
         if not data_batch:
             return "Error: Invalid data batch"
+
         for data in data_batch:
             if isinstance(data, dict):
-                if "buy" in data and isinstance(data["buy"], (int, float)):
-                    net_flow += data["buy"]
+                buy_val = data.get("buy")
+                sell_val = data.get("sell")
+
+                if isinstance(buy_val, (int, float)):
+                    net_flow += buy_val
                     count += 1
-                elif "sell" in data and isinstance(data["sell"], (int, float)):
-                    net_flow -= data["sell"]
+                elif isinstance(sell_val, (int, float)):
+                    net_flow -= sell_val
                     count += 1
+
         if count == 0:
             return "Error: No transactions found"
         return (
@@ -136,13 +143,16 @@ class EventStream(DataStream):
         """
         events = 0
         errors = 0
+
         if not data_batch:
             return "Error: Invalid data batch"
+
         for data in data_batch:
             if isinstance(data, str):
                 if data == "error":
                     errors += 1
                 events += 1
+
         if events == 0:
             return "Error: No events found"
         return (

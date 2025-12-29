@@ -315,7 +315,7 @@ if __name__ == "__main__":
     manager.add_pipeline(CSVAdapter(1))
     csv_data = "user,action,timestamp"
     output = manager.process(csv_data)
-    print(f"Input: {csv_data}")
+    print(f'Input: "{csv_data}"')
     print("Transform: Parsed and structured data")
     print(f"Output: {output}\n")
     manager.pipelines.pop()
@@ -334,7 +334,7 @@ if __name__ == "__main__":
     manager.add_pipeline(StreamAdapter("C"))
     print("Pipeline A -> Pipeline B -> Pipeline C")
     print("Data flow: Raw -> Processed -> Analyzed -> Stored")
-    print("Chain result: 100 records processed through 3-stage pipeline")
+    print("\nChain result: 100 records processed through 3-stage pipeline")
     print("Performance: 95% efficiency, 0.2s total processing time")
 
     print("\n=== Error Recovery Test ===")

@@ -120,15 +120,16 @@ class TextProcessor(DataProcessor):
             A formatted string with character and word counts.
         """
         char_count = 0
-        for _ in data:
-            char_count += 1
-
-        words = data.split()
-
         word_count = 0
-        for _ in words:
-            word_count += 1
-
+        in_word = False
+        for char in data:
+            if char == " ":
+                in_word = False
+            else:
+                if not in_word:
+                    word_count += 1
+                    in_word = True
+            char_count += 1
         return f"Processed text: {char_count} characters, {word_count} words"
 
     def validate(self, data: Any) -> bool:
@@ -175,22 +176,28 @@ class LogProcessor(DataProcessor):
         Returns:
             A formatted string with a tag (e.g., [ALERT]) and the message.
         """
-        parts = data.split(":", 1)
-
-        level = parts[0]
-        message = parts[1].strip()
-
         level_dict = {
             "ERROR": "[ALERT]",
             "INFO": "[INFO]"
         }
-
+        level = ""
+        message = ""
+        found_sep = False
+        for char in data:
+            if found_sep:
+                if char == " " and message == "":
+                    continue
+                message += char
+            else:
+                if char == ":":
+                    found_sep = True
+                else:
+                    level += char
         tag = ""
         try:
             tag = level_dict[level]
         except KeyError:
             tag = f"[{level}]"
-
         return f"{tag} {level} level detected: {message}"
 
 

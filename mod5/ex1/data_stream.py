@@ -75,18 +75,17 @@ class SensorStream(DataStream):
         temp_count = 0
         temp_sum: float = 0
         avg_temp: float = 0
-
         if not data_batch:
             return "Error: Invalid data batch"
-
         for data in data_batch:
             if isinstance(data, dict):
-                value = data.get("temp")
-                if isinstance(value, (int, float)):
-                    temp_sum += value
-                    temp_count += 1
-                count += 1
-
+                for key in data:
+                    value = data[key]
+                    if isinstance(value, (int, float)):
+                        if key == "temp":
+                            temp_sum += value
+                            temp_count += 1
+                        count += 1
         if count == 0:
             return "Error: No sensor data found"
         try:
@@ -109,22 +108,16 @@ class TransactionStream(DataStream):
         """
         net_flow = 0
         count = 0
-
         if not data_batch:
             return "Error: Invalid data batch"
-
         for data in data_batch:
             if isinstance(data, dict):
-                buy_val = data.get("buy")
-                sell_val = data.get("sell")
-
-                if isinstance(buy_val, (int, float)):
-                    net_flow += buy_val
+                if "buy" in data and isinstance(data["buy"], (int, float)):
+                    net_flow += data["buy"]
                     count += 1
-                elif isinstance(sell_val, (int, float)):
-                    net_flow -= sell_val
+                elif "sell" in data and isinstance(data["sell"], (int, float)):
+                    net_flow -= data["sell"]
                     count += 1
-
         if count == 0:
             return "Error: No transactions found"
         return (
@@ -143,16 +136,13 @@ class EventStream(DataStream):
         """
         events = 0
         errors = 0
-
         if not data_batch:
             return "Error: Invalid data batch"
-
         for data in data_batch:
             if isinstance(data, str):
                 if data == "error":
                     errors += 1
                 events += 1
-
         if events == 0:
             return "Error: No events found"
         return (
@@ -239,8 +229,8 @@ if __name__ == "__main__":
     print("Processing mixed stream types through unified interface...")
 
     print("\nBatch 1 Results:")
-    print("- Sensor data: 3 readings processed")
-    print("- Transaction data: 3 operations processed")
+    print("- Sensor data: 2 readings processed")
+    print("- Transaction data: 4 operations processed")
     print("- Event data: 3 events processed")
 
     print("\nStream filtering active: High-priority data only")

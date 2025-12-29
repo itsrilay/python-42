@@ -1,3 +1,5 @@
+"""Package-level interface for accessing elemental and potion functions."""
+
 from .elements import create_fire, create_water
 
 __version__ = "1.0.0"

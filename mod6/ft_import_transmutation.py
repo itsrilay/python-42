@@ -10,7 +10,7 @@ from alchemy.potions import strength_potion
 
 
 def main() -> None:
-    """Executes the import demonstration for each method."""
+    """Execute the import demonstration for each method."""
     print("\n=== Import Transmutation Mastery ===")
 
     print("\nMethod 1 - Full module import:")

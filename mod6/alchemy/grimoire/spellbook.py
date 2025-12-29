@@ -2,7 +2,7 @@
 
 
 def record_spell(spell_name: str, ingredients: str) -> str:
-    """Records the spell if the ingredient validation passes."""
+    """Record the spell if the ingredient validation passes."""
     from .validator import validate_ingredients
 
     val_result = validate_ingredients(ingredients)

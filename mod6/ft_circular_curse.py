@@ -7,7 +7,7 @@ from alchemy.grimoire.validator import validate_ingredients
 
 
 def main() -> None:
-    """Executes the circular dependency test suite."""
+    """Execute the circular dependency test suite."""
     print("\n=== Circular Curse Breaking ===")
 
     print("\nTesting ingredient validation:")

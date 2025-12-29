@@ -7,7 +7,7 @@ import alchemy
 
 
 def test_direct_access() -> None:
-    """Tests direct access to the elements module."""
+    """Test direct access to the elements module."""
     print(
         "alchemy.elements.create_fire():",
         alchemy.elements.create_fire()
@@ -27,7 +27,7 @@ def test_direct_access() -> None:
 
 
 def test_package_access() -> None:
-    """Tests visibility control via __init__.py."""
+    """Test visibility control via __init__.py."""
     print(f"alchemy.create_fire(): {alchemy.create_fire()}")
     print(f"alchemy.create_water(): {alchemy.create_water()}")
 

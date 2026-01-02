@@ -42,7 +42,10 @@ class Card(ABC):
         Returns:
             dict[str, Any]: A dictionary describing the result of the play.
         """
-        pass
+        return {
+            "card_played": self.name,
+            "mana_used": self.cost
+        }
 
     def get_card_info(self) -> dict[str, Any]:
         """

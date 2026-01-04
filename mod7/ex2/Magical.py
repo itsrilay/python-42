@@ -7,7 +7,6 @@ mana, ensuring consistent magic system behaviors.
 
 from abc import ABC, abstractmethod
 from typing import Any
-from ex2.Combatable import Combatable
 
 
 class Magical(ABC):
@@ -22,14 +21,14 @@ class Magical(ABC):
     def cast_spell(
         self,
         spell_name: str,
-        targets: list[Combatable]
+        targets: list[Any]
     ) -> dict[str, Any]:
         """
         Cast a specific spell on a list of targets.
 
         Args:
             spell_name (str): The name of the spell to cast.
-            targets (list[Combatable]): list of entities targeted by the spell.
+            targets (list[Any]): list of entities targeted by the spell.
 
         Returns:
             dict[str, Any]: A dictionary detailing the spell's effect,

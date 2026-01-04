@@ -63,23 +63,29 @@ class EliteCard(Card, Combatable, Magical):
         """
         return super().play(game_state)
 
-    def attack(self, target: Combatable) -> dict[str, Any]:
+    def attack(self, target: Any) -> dict[str, Any]:
         """
         Perform an attack on a target entity.
 
         Args:
-            target (Combatable): The entity being attacked.
+            target (Any): The entity being attacked.
 
         Returns:
             dict[str, Any]: A dictionary detailing the attack, including
             attacker name, target name, damage dealt, and combat type.
         """
-        target.defend(self.attack_power)
+        if hasattr(target, "defend"):
+            damage_dealt = target.defend(self.attack_power)["damage_taken"]
+        elif hasattr(target, "health"):
+            target.health -= self.attack_power
+        else:
+            return {"error": "Invalid target"}
+
         target_name = getattr(target, "name", "Enemy")
         return {
             "attacker": self.name,
             "target": target_name,
-            "damage": self.attack_power,
+            "damage_dealt": damage_dealt,
             "combat_type": self.combat_type
         }
 
@@ -119,14 +125,14 @@ class EliteCard(Card, Combatable, Magical):
     def cast_spell(
         self,
         spell_name: str,
-        targets: list[Combatable]
+        targets: list[Any]
     ) -> dict[str, Any]:
         """
         Cast a spell on a list of targets, consuming mana.
 
         Args:
             spell_name (str): The name of the spell.
-            targets (list[Combatable]): The targets of the spell.
+            targets (list[Any]): The targets of the spell.
 
         Returns:
             dict[str, Any]: A dictionary detailing the spell cast, targets,

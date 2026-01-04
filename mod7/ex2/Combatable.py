@@ -18,12 +18,12 @@ class Combatable(ABC):
     """
 
     @abstractmethod
-    def attack(self, target: "Combatable") -> dict[str, Any]:
+    def attack(self, target: Any) -> dict[str, Any]:
         """
         Perform an attack on a target.
 
         Args:
-            target (Combatable): The entity being attacked.
+            target (Any): The entity being attacked.
 
         Returns:
             dict[str, Any]: A dictionary containing details of the attack

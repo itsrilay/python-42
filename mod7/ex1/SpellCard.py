@@ -63,18 +63,20 @@ class SpellCard(Card):
             "effect": effect
         }
 
-    def resolve_effect(self, targets: list[Card]) -> dict[str, Any]:
+    def resolve_effect(self, targets: list[Any]) -> dict[str, Any]:
         """
         Apply the spell's effect to a list of targets.
 
         Args:
-            targets (list[Card]): A list of Card objects targeted by the spell.
+            targets (list[Any]): A list of any objects targeted by the spell.
 
         Returns:
             dict[str, Any]: A dictionary reporting the type of effect applied
             and the names of the targets.
         """
+        target_names = [getattr(t, "name", str(t)) for t in targets]
+
         return {
             "effect_applied": self.effect_type,
-            "applied_to": ", ".join(target.name for target in targets)
+            "applied_to": ", ".join(target_names)
         }

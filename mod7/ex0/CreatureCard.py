@@ -60,23 +60,33 @@ class CreatureCard(Card):
             "effect": "Creature summoned to battlefield"
         }
 
-    def attack_target(self, target: "CreatureCard") -> dict[str, Any]:
+    def attack_target(self, target: Any) -> dict[str, Any]:
         """
-        Perform an attack on a target creature.
+        Perform an attack on a target card.
 
         Args:
-            target (CreatureCard): The creature card being attacked.
+            target (Any): The card being attacked.
 
         Returns:
             dict[str, Any]: A dictionary containing details of the combat
             interaction, including damage dealt and whether the combat
             resolved.
         """
-        target.health -= self.attack
+        damage_dealt = 0
+
+        if hasattr(target, "defend"):
+            result = target.defend(self.attack)
+            damage_dealt = result["damage_taken"]
+        elif hasattr(target, "health"):
+            target.health -= self.attack
+            damage_dealt = self.attack
+        else:
+            return {"error": "Invalid target"}
+
         return {
             "attacker": self.name,
             "target": target.name,
-            "damage_dealt": self.attack,
+            "damage_dealt": damage_dealt,
             "combat_resolved": target.health <= 0
         }
 

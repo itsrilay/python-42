@@ -9,7 +9,6 @@ Defensive) can be swapped at runtime to change how the game is played.
 from typing import Any
 from abc import ABC, abstractmethod
 from ex0.Card import Card
-from ex2.Combatable import Combatable
 
 
 class GameStrategy(ABC):
@@ -24,7 +23,7 @@ class GameStrategy(ABC):
     def execute_turn(
         self,
         hand: list[Card],
-        battlefield: list[Card]
+        battlefield: list[Any]
     ) -> dict[str, Any]:
         """
         Execute a full game turn based on the specific strategy logic.
@@ -32,7 +31,7 @@ class GameStrategy(ABC):
         Args:
             hand (list[Card]): The cards currently available in the
                                player's hand.
-            battlefield (list[Card]): The cards currently active on the board.
+            battlefield (list[Any]): The entities active on the board.
 
         Returns:
             dict[str, Any]: A summary of actions taken during the turn, such as
@@ -53,17 +52,17 @@ class GameStrategy(ABC):
     @abstractmethod
     def prioritize_targets(
         self,
-        available_targets: list[Combatable]
-    ) -> list[Combatable]:
+        available_targets: list[Any]
+    ) -> list[Any]:
         """
         Sort a list of potential targets according to strategic priority.
 
         Args:
-            available_targets (list[Combatable]): A list of entities that
-                                                  can be attacked.
+            available_targets (list[Any]): A list of entities that
+                                           can be attacked.
 
         Returns:
-            list[Combatable]: The same list sorted by priority
-                              (highest priority first).
+            list[Any]: The same list sorted by priority
+                       (highest priority first).
         """
         pass

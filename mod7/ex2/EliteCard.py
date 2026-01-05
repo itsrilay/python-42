@@ -25,7 +25,7 @@ class EliteCard(Card, Combatable, Magical):
         name: str,
         cost: int,
         rarity: str,
-        attack_power: int,
+        attack: int,
         health: int,
         mana: int,
         armor: int,
@@ -38,14 +38,14 @@ class EliteCard(Card, Combatable, Magical):
             name (str): The name of the card.
             cost (int): The mana cost to play the card.
             rarity (str): The rarity level of the card.
-            attack_power (int): The damage value dealt during attacks.
+            attack (int): The damage value dealt during attacks.
             health (int): The current hit points of the card.
             mana (int): The current mana pool available for casting spells.
             armor (int): Damage reduction value applied to incoming attacks.
             combat_type (str): The style of combat (e.g., 'melee', 'ranged').
         """
         super().__init__(name, cost, rarity)
-        self._attack_power = attack_power
+        self._attack = attack
         self._health = health
         self._mana = mana
         self._armor = armor
@@ -75,10 +75,10 @@ class EliteCard(Card, Combatable, Magical):
             attacker name, target name, damage dealt, and combat type.
         """
         if hasattr(target, "defend"):
-            damage_dealt = target.defend(self._attack_power)["damage_taken"]
+            damage_dealt = target.defend(self._attack)["damage_taken"]
         elif hasattr(target, "_health"):
-            damage_dealt = min(target._health, self._attack_power)
-            target._health -= self._attack_power
+            damage_dealt = min(target._health, self._attack)
+            target._health -= self._attack
         else:
             return {"error": "Invalid target"}
 
@@ -118,7 +118,7 @@ class EliteCard(Card, Combatable, Magical):
         """
         return {
             "health": self._health,
-            "attack": self._attack_power,
+            "attack": self._attack,
             "armor": self._armor
         }
 

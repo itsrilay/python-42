@@ -41,9 +41,10 @@ def main() -> None:
     print(f"Deck stats: {deck.get_deck_stats()}")
 
     print("\nDrawing and playing cards:\n")
-    while len(deck.cards) > 0:
+    while deck.get_deck_stats()["total_cards"] > 0:
         card = deck.draw_card()
-        print(f"Drew: {card.name} ({type(card).__name__.replace('Card', '')})")
+        card_name = card.get_card_info()["name"]
+        print(f"Drew: {card_name} ({type(card).__name__.replace('Card', '')})")
         print(f"Play result: {card.play({})}\n")
 
     print("Polymorphism in action: Same interface, different card behaviors!")

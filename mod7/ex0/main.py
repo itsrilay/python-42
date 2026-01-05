@@ -6,6 +6,7 @@ and its concrete implementation, CreatureCard.
 """
 
 from ex0.CreatureCard import CreatureCard
+import sys
 
 
 def main() -> None:
@@ -19,7 +20,11 @@ def main() -> None:
     print("\n=== DataDeck Card Foundation ===")
 
     print("\nTesting Abstract Base Class Design:")
-    dragon = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
+    try:
+        dragon = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
+    except ValueError as e:
+        print(e)
+        sys.exit()
 
     print("\nCreatureCard Info:")
     print(dragon.get_card_info())
@@ -29,7 +34,11 @@ def main() -> None:
     print(f"Play result: {dragon.play({})}")
 
     print("\nFire Dragon attacks Goblin Warrior")
-    goblin = CreatureCard("Goblin Warrior", 2, "Common", 1, 2)
+    try:
+        goblin = CreatureCard("Goblin Warrior", 2, "Common", 1, 2)
+    except ValueError as e:
+        print(e)
+        sys.exit()
     print(f"Attack result: {dragon.attack_target(goblin)}")
 
     print("\nTesting insufficient mana (3 available):")

@@ -63,6 +63,8 @@ def main() -> None:
     print(f"Spell cast: {warrior.cast_spell('Fireball', [enemy1, enemy2])}")
     print(f"Mana channel: {warrior.channel_mana(3)}")
 
+    print("\nMultiple interface implementation successful!")
+
 
 if __name__ == "__main__":
     main()

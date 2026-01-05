@@ -34,7 +34,7 @@ class SpellCard(Card):
             effect_type (str): The category of effect (e.g., 'damage', 'heal').
         """
         super().__init__(name, cost, rarity)
-        self.effect_type = effect_type
+        self._effect_type = effect_type
 
     def play(self, game_state: dict[str, Any]) -> dict[str, Any]:
         """
@@ -47,7 +47,7 @@ class SpellCard(Card):
             dict[str, Any]: A result dictionary describing the spell's effect.
         """
         effect = "Unknown spell effect"
-        match self.effect_type:
+        match self._effect_type:
             case "damage":
                 effect = "Deal damage to target"
             case "heal":
@@ -77,6 +77,6 @@ class SpellCard(Card):
         target_names = [getattr(t, "name", str(t)) for t in targets]
 
         return {
-            "effect_applied": self.effect_type,
+            "effect_applied": self._effect_type,
             "applied_to": ", ".join(target_names)
         }

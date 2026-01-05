@@ -63,10 +63,13 @@ class GameEngine:
             deck_data = self._factory.create_themed_deck(2)
             hand: list[Card] = deck_data["cards"]
 
-            hand_format = [
-                f"{card.name} ({card.cost})"
-                for card in hand
-            ]
+            hand_format: list[str] = []
+            for card in hand:
+                card_info = card.get_card_info()
+                name = card_info["name"]
+                cost = card_info["cost"]
+                hand_format.append(f"{name} ({cost})")
+
             print(f"Hand: {hand_format}")
 
             battlefield = [

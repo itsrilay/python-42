@@ -18,6 +18,16 @@ class AggressiveStrategy(GameStrategy):
     and attacking the weakest targets (lowest health).
     """
 
+    def _get_target_health(self, target: Any) -> int:
+        if hasattr(target, "get_combat_stats"):
+            return target.get_combat_stats()["health"]
+
+        card_info = target.get_card_info()
+        if "health" in card_info:
+            return card_info["health"]
+
+        return 9999
+
     def execute_turn(
         self,
         hand: list[Card],
@@ -37,7 +47,7 @@ class AggressiveStrategy(GameStrategy):
             dict[str, Any]: A summary of the turn, including cards played,
             damage dealt, and targets attacked.
         """
-        hand = sorted(hand, key=lambda card: card.cost)
+        hand = sorted(hand, key=lambda card: card.get_card_info()["cost"])
 
         targets = self.prioritize_targets(battlefield)
 
@@ -49,8 +59,9 @@ class AggressiveStrategy(GameStrategy):
         for card in hand:
             if card.is_playable(mana):
                 card.play({})
-                played_cards.append(card.name)
-                mana -= card.cost
+                card_info = card.get_card_info()
+                played_cards.append(card_info["name"])
+                mana -= card_info["cost"]
 
                 if targets:
                     if hasattr(card, "attack_target"):
@@ -61,8 +72,7 @@ class AggressiveStrategy(GameStrategy):
                     else:
                         continue
 
-                    target_name = getattr(targets[0], "name", "Unknown")
-                    targets_attacked.append(target_name)
+                    targets_attacked.append(targets[0].get_card_info()["name"])
 
         return {
             "cards_played": played_cards,
@@ -98,10 +108,10 @@ class AggressiveStrategy(GameStrategy):
         """
         valid_targets = [
             target for target in available_targets
-            if hasattr(target, "health")
+            if self._get_target_health(target) < 9999
         ]
 
         return sorted(
             valid_targets,
-            key=lambda target: getattr(target, "health", 999)
+            key=lambda target: self._get_target_health(target)
         )

@@ -16,7 +16,7 @@ class Deck:
 
     def remove_card(self, card_name: str) -> bool:
         for card in self._cards:
-            if card.name == card_name:
+            if card.get_card_info()["name"] == card_name:
                 self._cards.remove(card)
                 return True
         return False
@@ -31,10 +31,10 @@ class Deck:
         creatures = sum(isinstance(card, CreatureCard) for card in self._cards)
         spells = sum(isinstance(card, SpellCard) for card in self._cards)
         artifacts = sum(isinstance(card, ArtifactCard) for card in self._cards)
-        costs = [card.cost for card in self._cards]
+        costs = [card.get_card_info()["cost"] for card in self._cards]
 
         return {
-            "total__cards": len(self._cards),
+            "total_cards": len(self._cards),
             "creatures": creatures,
             "spells": spells,
             "artifacts": artifacts,

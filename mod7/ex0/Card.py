@@ -27,9 +27,9 @@ class Card(ABC):
             cost (int): The mana cost required to play the card.
             rarity (str): The rarity level of the card.
         """
-        self.name = name
-        self.cost = cost
-        self.rarity = rarity
+        self._name = name
+        self._cost = cost
+        self._rarity = rarity
 
     @abstractmethod
     def play(self, game_state: dict[str, Any]) -> dict[str, Any]:
@@ -43,8 +43,8 @@ class Card(ABC):
             dict[str, Any]: A dictionary describing the result of the play.
         """
         return {
-            "card_played": self.name,
-            "mana_used": self.cost
+            "card_played": self._name,
+            "mana_used": self._cost
         }
 
     def get_card_info(self) -> dict[str, Any]:
@@ -56,9 +56,9 @@ class Card(ABC):
             and rarity.
         """
         return {
-            "name": self.name,
-            "cost": self.cost,
-            "rarity": self.rarity
+            "name": self._name,
+            "cost": self._cost,
+            "rarity": self._rarity
         }
 
     def is_playable(self, available_mana: int) -> bool:
@@ -72,4 +72,4 @@ class Card(ABC):
             bool: True if the card's cost is less than or equal to available
             mana, False otherwise.
         """
-        return self.cost <= available_mana
+        return self._cost <= available_mana

@@ -9,6 +9,7 @@ a turn using aggressive AI logic.
 from ex3.GameEngine import GameEngine
 from ex3.FantasyCardFactory import FantasyCardFactory
 from ex3.AggressiveStrategy import AggressiveStrategy
+import sys
 
 
 def main() -> None:
@@ -31,9 +32,13 @@ def main() -> None:
 
     print("\nSimulating aggressive turn...")
 
-    turn_result = engine.simulate_turn()
+    try:
+        turn_result = engine.simulate_turn()
+    except ValueError as e:
+        print(f"Error: {e}")
+        sys.exit()
 
-    print("Turn execution:")
+    print("\nTurn execution:")
     print(f"Strategy: {strategy.get_strategy_name()}")
     print(f"Actions: {turn_result}")
 

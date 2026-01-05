@@ -42,8 +42,8 @@ class CreatureCard(Card):
         super().__init__(name, cost, rarity)
         if attack <= 0 or health <= 0:
             raise ValueError("Invalid CreatureCard attributes.")
-        self.attack = attack
-        self.health = health
+        self._attack = attack
+        self._health = health
 
     def play(self, game_state: dict[str, Any]) -> dict[str, Any]:
         """
@@ -75,19 +75,19 @@ class CreatureCard(Card):
         damage_dealt = 0
 
         if hasattr(target, "defend"):
-            result = target.defend(self.attack)
+            result = target.defend(self._attack)
             damage_dealt = result["damage_taken"]
-        elif hasattr(target, "health"):
-            target.health -= self.attack
-            damage_dealt = self.attack
+        elif hasattr(target, "_health"):
+            target._health -= self._attack
+            damage_dealt = self._attack
         else:
             return {"error": "Invalid target"}
 
         return {
-            "attacker": self.name,
-            "target": target.name,
+            "attacker": self._name,
+            "target": target._name,
             "damage_dealt": damage_dealt,
-            "combat_resolved": target.health <= 0
+            "combat_resolved": target._health <= 0
         }
 
     def get_card_info(self) -> dict[str, Any]:
@@ -103,6 +103,6 @@ class CreatureCard(Card):
         """
         return super().get_card_info() | {
             "type": "Creature",
-            "attack": self.attack,
-            "health": self.health
+            "attack": self._attack,
+            "health": self._health
         }

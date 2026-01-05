@@ -37,8 +37,8 @@ class ArtifactCard(Card):
             effect (str): A description of the artifact's ability.
         """
         super().__init__(name, cost, rarity)
-        self.durability = durability
-        self.effect = effect
+        self._durability = durability
+        self._effect = effect
 
     def play(self, game_state: dict[str, Any]) -> dict[str, Any]:
         """
@@ -51,7 +51,7 @@ class ArtifactCard(Card):
             dict[str, Any]: A result dictionary including the artifact's
             effect description.
         """
-        return super().play(game_state) | {"effect": self.effect}
+        return super().play(game_state) | {"effect": self._effect}
 
     def activate_ability(self) -> dict[str, Any]:
         """
@@ -61,8 +61,8 @@ class ArtifactCard(Card):
             dict[str, Any]: A dictionary reporting the remaining durability
             and the effect triggered.
         """
-        self.durability -= 1
+        self._durability -= 1
         return {
-            "durability": self.durability,
-            "effect": self.effect
+            "durability": self._durability,
+            "effect": self._effect
         }

@@ -45,11 +45,11 @@ class EliteCard(Card, Combatable, Magical):
             combat_type (str): The style of combat (e.g., 'melee', 'ranged').
         """
         super().__init__(name, cost, rarity)
-        self.attack_power = attack_power
-        self.health = health
-        self.mana = mana
-        self.armor = armor
-        self.combat_type = combat_type
+        self._attack_power = attack_power
+        self._health = health
+        self._mana = mana
+        self._armor = armor
+        self._combat_type = combat_type
 
     def play(self, game_state: dict[str, Any]) -> dict[str, Any]:
         """
@@ -75,18 +75,18 @@ class EliteCard(Card, Combatable, Magical):
             attacker name, target name, damage dealt, and combat type.
         """
         if hasattr(target, "defend"):
-            damage_dealt = target.defend(self.attack_power)["damage_taken"]
-        elif hasattr(target, "health"):
-            target.health -= self.attack_power
+            damage_dealt = target.defend(self._attack_power)["damage_taken"]
+        elif hasattr(target, "_health"):
+            damage_dealt = min(target._health, self._attack_power)
+            target._health -= self._attack_power
         else:
             return {"error": "Invalid target"}
 
-        target_name = getattr(target, "name", "Enemy")
         return {
-            "attacker": self.name,
-            "target": target_name,
+            "attacker": self._name,
+            "target": target._name,
             "damage_dealt": damage_dealt,
-            "combat_type": self.combat_type
+            "combat_type": self._combat_type
         }
 
     def defend(self, incoming_damage: int) -> dict[str, Any]:
@@ -100,13 +100,13 @@ class EliteCard(Card, Combatable, Magical):
             dict[str, Any]: A dictionary detailing the defense, including
             actual damage taken, blocked amount, and survival status.
         """
-        taken = max(incoming_damage - self.armor, 0)
-        self.health -= taken
+        taken = max(incoming_damage - self._armor, 0)
+        self._health -= taken
         return {
-            "defender": self.name,
+            "defender": self._name,
             "damage_taken": taken,
-            "damage_blocked": self.armor,
-            "still_alive": self.health > 0
+            "damage_blocked": self._armor,
+            "still_alive": self._health > 0
         }
 
     def get_combat_stats(self) -> dict[str, Any]:
@@ -117,9 +117,9 @@ class EliteCard(Card, Combatable, Magical):
             dict[str, Any]: A dictionary containing health, attack, and armor.
         """
         return {
-            "health": self.health,
-            "attack": self.attack_power,
-            "armor": self.armor
+            "health": self._health,
+            "attack": self._attack_power,
+            "armor": self._armor
         }
 
     def cast_spell(
@@ -129,19 +129,19 @@ class EliteCard(Card, Combatable, Magical):
     ) -> dict[str, Any]:
         """
         Cast a spell on a list of targets, consuming mana.
-
-        Args:
-            spell_name (str): The name of the spell.
-            targets (list[Any]): The targets of the spell.
-
-        Returns:
-            dict[str, Any]: A dictionary detailing the spell cast, targets,
-            and mana consumed.
         """
-        tars = [getattr(t, "name", f"Enemy{i}") for i, t in enumerate(targets)]
-        self.mana -= 4
+
+        tars: list[str] = []
+        for i, t in enumerate(targets):
+            if hasattr(t, "get_card_info"):
+                tars.append(t.get_card_info()["name"])
+            else:
+                tars.append(getattr(t, "name", f"Enemy{i}"))
+
+        self._mana -= 4
+
         return {
-            "caster": self.name,
+            "caster": self._name,
             "spell": spell_name,
             "targets": tars,
             "mana_used": 4
@@ -158,10 +158,10 @@ class EliteCard(Card, Combatable, Magical):
             dict[str, Any]: A dictionary showing the amount channeled and
             the new total mana.
         """
-        self.mana += amount
+        self._mana += amount
         return {
             "channeled": amount,
-            "total_mana": self.mana
+            "total_mana": self._mana
         }
 
     def get_magic_stats(self) -> dict[str, Any]:
@@ -171,4 +171,4 @@ class EliteCard(Card, Combatable, Magical):
         Returns:
             dict[str, Any]: A dictionary containing the current mana.
         """
-        return {"mana": self.mana}
+        return {"mana": self._mana}

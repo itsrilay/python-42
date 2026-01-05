@@ -9,34 +9,34 @@ import random
 
 class Deck:
     def __init__(self) -> None:
-        self.cards: list[Card] = []
+        self._cards: list[Card] = []
 
     def add_card(self, card: Card) -> None:
-        self.cards.append(card)
+        self._cards.append(card)
 
     def remove_card(self, card_name: str) -> bool:
-        for card in self.cards:
+        for card in self._cards:
             if card.name == card_name:
-                self.cards.remove(card)
+                self._cards.remove(card)
                 return True
         return False
 
     def shuffle(self) -> None:
-        random.shuffle(self.cards)
+        random.shuffle(self._cards)
 
     def draw_card(self) -> Card:
-        return self.cards.pop()
+        return self._cards.pop()
 
     def get_deck_stats(self) -> dict[str, Any]:
-        creatures = sum(isinstance(card, CreatureCard) for card in self.cards)
-        spells = sum(isinstance(card, SpellCard) for card in self.cards)
-        artifacts = sum(isinstance(card, ArtifactCard) for card in self.cards)
-        costs = [card.cost for card in self.cards]
+        creatures = sum(isinstance(card, CreatureCard) for card in self._cards)
+        spells = sum(isinstance(card, SpellCard) for card in self._cards)
+        artifacts = sum(isinstance(card, ArtifactCard) for card in self._cards)
+        costs = [card.cost for card in self._cards]
 
         return {
-            "total_cards": len(self.cards),
+            "total__cards": len(self._cards),
             "creatures": creatures,
             "spells": spells,
             "artifacts": artifacts,
-            "avg_cost": round(mean(costs), 1) if self.cards else 0.0
+            "avg_cost": round(mean(costs), 1) if self._cards else 0.0
         }

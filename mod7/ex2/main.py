@@ -49,7 +49,7 @@ def main() -> None:
         print_capabilities(EliteCard, class_name)
 
     print("\nPlaying Arcane Warrior (Elite Card):")
-    warrior = EliteCard("Arcane Warrior", 5, "Epic", 5, 5, 8, 3, "melee")
+    warrior = EliteCard("Arcane Warrior", 5, "Epic", 7, 5, 8, 3, "melee")
 
     enemy = EliteCard("Enemy", 4, "Epic", 5, 3, 1, 2, "melee")
     enemy1 = EliteCard("Enemy1", 4, "Epic", 5, 3, 1, 2, "melee")

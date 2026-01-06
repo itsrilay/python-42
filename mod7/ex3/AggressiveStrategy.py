@@ -68,7 +68,7 @@ class AggressiveStrategy(GameStrategy):
                         attack_info = card.attack_target(targets[0])
                         damage_dealt += attack_info["damage_dealt"]
                     elif hasattr(card, "attack"):
-                        damage_dealt += card.attack(targets[0])["damage_dealt"]
+                        damage_dealt += card.attack(targets[0])["damage"]
                     else:
                         continue
 

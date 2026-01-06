@@ -76,16 +76,13 @@ class EliteCard(Card, Combatable, Magical):
         """
         if hasattr(target, "defend"):
             damage_dealt = target.defend(self._attack)["damage_taken"]
-        elif hasattr(target, "_health"):
-            damage_dealt = min(target._health, self._attack)
-            target._health -= self._attack
         else:
             return {"error": "Invalid target"}
 
         return {
             "attacker": self._name,
-            "target": target._name,
-            "damage_dealt": damage_dealt,
+            "target": target.get_card_info()["name"],
+            "damage": damage_dealt,
             "combat_type": self._combat_type
         }
 

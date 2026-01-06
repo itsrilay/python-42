@@ -29,7 +29,8 @@ class TournamentCard(Card, Combatable, Rankable):
             rarity: str,
             attack: int,
             health: int,
-            armor: int
+            armor: int,
+            rating: int
     ) -> None:
         """
         Initialize a new TournamentCard instance.
@@ -51,7 +52,8 @@ class TournamentCard(Card, Combatable, Rankable):
         self._armor = armor
         self._wins = 0
         self._losses = 0
-        self._rating = 1000
+        self._base_rating = rating
+        self._rating = rating
 
     def play(self, game_state: dict[str, Any]) -> dict[str, Any]:
         """
@@ -165,5 +167,5 @@ class TournamentCard(Card, Combatable, Rankable):
         Returns:
             int: The newly calculated rating value.
         """
-        self._rating = 1000 + (self._wins * 50 - self._losses * 30)
+        self._rating = self._base_rating + (self._wins*16 - self._losses*16)
         return self._rating

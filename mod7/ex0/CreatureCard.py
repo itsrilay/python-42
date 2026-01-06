@@ -74,12 +74,10 @@ class CreatureCard(Card):
         """
         damage_dealt = 0
 
+        result = None
         if hasattr(target, "defend"):
             result = target.defend(self._attack)
             damage_dealt = result["damage_taken"]
-        elif hasattr(target, "_health"):
-            target._health -= self._attack
-            damage_dealt = self._attack
         else:
             return {"error": "Invalid target"}
 
@@ -87,7 +85,27 @@ class CreatureCard(Card):
             "attacker": self._name,
             "target": target._name,
             "damage_dealt": damage_dealt,
-            "combat_resolved": target._health <= 0
+            "combat_resolved": not result["still_alive"]
+        }
+
+    def defend(self, incoming_damage: int) -> dict[str, Any]:
+        """
+        Process incoming damage.
+
+        Args:
+            incoming_damage (int): The raw damage amount received.
+
+        Returns:
+            dict[str, Any]: A dictionary detailing the defense, including
+            actual damage taken, blocked amount, and survival status.
+        """
+        taken = incoming_damage
+        self._health -= taken
+        return {
+            "defender": self._name,
+            "damage_taken": taken,
+            "damage_blocked": 0,
+            "still_alive": self._health > 0
         }
 
     def get_card_info(self) -> dict[str, Any]:

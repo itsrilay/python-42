@@ -1,3 +1,10 @@
+"""
+This module implements the FantasyCardFactory.
+
+It provides a concrete implementation of the CardFactory interface, specialized
+for creating fantasy-themed creatures, spells, and artifacts.
+"""
+
 from ex3.CardFactory import CardFactory
 from ex0.CreatureCard import CreatureCard
 from ex0.Card import Card

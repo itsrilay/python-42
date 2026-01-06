@@ -1,3 +1,11 @@
+"""
+Main demonstration script for Exercise 4: Tournament Platform.
+
+This module illustrates the integration of the TournamentPlatform with
+TournamentCard entities. It walks through the process of registering cards,
+executing matches, updating ratings, and generating platform reports.
+"""
+
 from ex4.TournamentCard import TournamentCard
 from ex4.TournamentPlatform import TournamentPlatform
 

@@ -5,7 +5,9 @@ This script demonstrates dependency management by checking for required
 libraries (pandas, requests, matplotlib) before simulating and visualizing
 Matrix system data.
 """
+
 import importlib
+from sys import stderr
 
 
 def main() -> None:
@@ -41,19 +43,19 @@ def main() -> None:
             missing_libs.append(lib_name)
 
     if missing_libs:
-        print("\nPlease install these missing dependencies:")
+        print("\nPlease install these missing dependencies:", file=stderr)
         for lib_name in missing_libs:
             print(lib_name)
 
-        print("\n- To install dependencies with pip run:")
-        print("\tpip install -r requirements.txt")
-        print("- And then run the script:")
-        print("\tpython3 loading.py")
+        print("\n- To install dependencies with pip run:", file=stderr)
+        print("\tpip install -r requirements.txt", file=stderr)
+        print("- And then run the script:", file=stderr)
+        print("\tpython3 loading.py", file=stderr)
 
-        print("\n- To install dependencies with Poetry run:")
-        print("\tpoetry install")
-        print("- And then run the script:")
-        print("\tpoetry run python loading.py")
+        print("\n- To install dependencies with Poetry run:", file=stderr)
+        print("\tpoetry install", file=stderr)
+        print("- And then run the script:", file=stderr)
+        print("\tpoetry run python loading.py", file=stderr)
     else:
         import numpy
         import pandas

@@ -59,7 +59,7 @@ def main() -> None:
         print(f"[{'OK' if has_env else 'FAIL'}] .env file properly configured")
         print("[OK] Production overrides available")
 
-        print("The Oracle sees all configurations.")
+        print("\nThe Oracle sees all configurations.")
     else:
         print("\nConfigurations failed to load!", file=stderr)
         print("- Missing configurations:", file=stderr)

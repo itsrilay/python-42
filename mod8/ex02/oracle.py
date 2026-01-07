@@ -25,7 +25,7 @@ def main() -> None:
 
     has_env = True
     if not os.path.exists(".env"):
-        print("WARNING - Missing .env file.")
+        print("\nWARNING - Missing .env file.")
         has_env = False
 
     db_str = "Connected to local instance"
@@ -62,7 +62,7 @@ def main() -> None:
         print("\nThe Oracle sees all configurations.")
     else:
         print("\nConfigurations failed to load!", file=stderr)
-        print("- Missing configurations:", file=stderr)
+        print("\n- Missing configurations:", file=stderr)
         for conf in missing_conf:
             print(conf, file=stderr)
         print(

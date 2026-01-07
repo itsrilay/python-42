@@ -31,6 +31,7 @@ def main() -> None:
 
     if virtual:
         print(f"Virtual Environment: {os.path.basename(sys.prefix)}")
+        print(f"Environment Path: {sys.prefix}")
 
         print("\nSUCCESS: You're in an isolated environment!")
         print("Safe to install packages without affecting the global system.")

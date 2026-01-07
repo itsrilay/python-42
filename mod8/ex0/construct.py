@@ -2,9 +2,26 @@ import sys
 import os
 import site
 
-if __name__ == "__main__":
+"""
+Mission: Enter the Matrix (Exercise 0)
+
+This script detects the current Python environment and guides the user
+on how to set up a virtual environment (The Construct) if they are
+currently in the global system.
+"""
+
+
+def main() -> None:
+    """
+    Main entry point for the Construct program.
+
+    Checks sys.prefix against sys.base_prefix to determine the environment
+    status, prints the appropriate Matrix-themed messages, and displays
+    package paths.
+    """
     print("\nMATRIX STATUS: ", end="")
     virtual = sys.prefix != sys.base_prefix
+
     if virtual:
         print("Welcome to the construct")
     else:
@@ -32,6 +49,10 @@ if __name__ == "__main__":
         print("\nTo enter the construct, run:")
         print("python -m venv matrix_env")
         print("source matrix_env/bin/activate # On Unix")
-        print("matrix_env\nScripts\nactivate    # On Windows")
+        print("matrix_env\\Scripts\\activate    # On Windows")
 
         print("\nThen run this program again.")
+
+
+if __name__ == "__main__":
+    main()

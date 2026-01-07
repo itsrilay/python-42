@@ -14,7 +14,10 @@ from dotenv import load_dotenv
 
 def main() -> None:
     """
-    Main entry point for the Oracle configuration system.
+    Main entry point that securely loads and validates configuration.
+
+    It ensures all required environment variables are set, masks sensitive
+    secrets (like API_KEY) in the output, and routes error messages to stderr.
     """
     load_dotenv()
 

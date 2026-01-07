@@ -1,7 +1,3 @@
-import sys
-import os
-import site
-
 """
 Mission: Enter the Matrix (Exercise 0)
 
@@ -9,6 +5,10 @@ This script detects the current Python environment and guides the user
 on how to set up a virtual environment (The Construct) if they are
 currently in the global system.
 """
+
+import sys
+import os
+import site
 
 
 def main() -> None:

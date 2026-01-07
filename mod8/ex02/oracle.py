@@ -6,6 +6,7 @@ variables from a .env file. It handles sensitive data (like API keys and
 database URLs) by masking them in the output and validates that all required
 system variables are defined before proceeding.
 """
+
 import os
 from sys import stderr
 from dotenv import load_dotenv

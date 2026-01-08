@@ -1,9 +1,18 @@
+"""
+Alien Contact Log Validation Module.
+
+This module defines the data model for recording alien encounters and
+implements custom business logic for verifying reports based on
+contact type and signal data.
+"""
+
 from enum import Enum
 from pydantic import BaseModel, Field, model_validator, ValidationError
 from datetime import datetime
 
 
 class ContactType(str, Enum):
+    """Enumeration of recognized alien contact classifications."""
     RADIO = "radio"
     VISUAL = "visual"
     PHYSICAL = "physical"
@@ -11,6 +20,12 @@ class ContactType(str, Enum):
 
 
 class AlienContact(BaseModel):
+    """
+    Represents a single report of an alien encounter.
+
+    Validates field constraints and enforces complex business rules regarding
+    verification status, witness requirements, and signal characteristics.
+    """
     contact_id: str = Field(..., min_length=5, max_length=15)
     timestamp: datetime
     location: str = Field(..., min_length=3, max_length=100)
@@ -41,6 +56,12 @@ class AlienContact(BaseModel):
 
 
 def main() -> None:
+    """
+    Demonstrates the usage of the AlienContact model.
+
+    Creates a valid contact report and attempts to create an invalid one
+    to showcase the custom validation rules in action.
+    """
     print("Alien Contact Log Validation")
     print("======================================")
     valid = AlienContact(

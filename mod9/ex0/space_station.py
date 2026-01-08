@@ -34,7 +34,7 @@ def main() -> None:
     to create an invalid instance to demonstrate error handling.
     """
     print("Space Station Data Validation")
-
+    print("========================================")
     valid = SpaceStation(
         station_id="ISS001",
         name="International Space Station",
@@ -43,14 +43,12 @@ def main() -> None:
         oxygen_level=92.3,
         last_maintenance=datetime.today()
     )
-
-    print("========================================")
     print("Valid station created:")
     print(f"ID: {valid.station_id}")
     print(f"Name: {valid.name}")
-    print(f"Crew: {valid.crew_size}")
-    print(f"Power: {valid.power_level}")
-    print(f"Oxygen: {valid.oxygen_level}")
+    print(f"Crew: {valid.crew_size} people")
+    print(f"Power: {valid.power_level}%")
+    print(f"Oxygen: {valid.oxygen_level}%")
     print(
         f"Status: {'Operational' if valid.is_operational else 'Inoperative'}"
     )

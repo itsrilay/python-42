@@ -23,7 +23,7 @@ def test_error_types() -> None:
         "ValueError",
         "ZeroDivisionError",
         "FileNotFoundError",
-        "KeyError",
+        "KeyError"
     ]
     print("=== Garden Error Types Demo ===\n")
     for error in errors:

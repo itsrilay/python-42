@@ -93,7 +93,7 @@ def spell_dispatcher() -> Callable[[Any], Any]:
         return f"Unknown spell type: {arg}"
 
     @cast_spell.register(int)
-    def _(arg: int) -> str:
+    def _(arg: int) -> str:  # _ for namespace hygiene
         return f"Deals {arg} damage"
 
     @cast_spell.register(str)
@@ -127,7 +127,8 @@ def main() -> None:
     print(partials["fire_enchant"]("Sword"))
 
     print("\nTesting memoized fibonacci...")
-    print(f"Fib(30): {memoized_fibonacci(30)}")
+    print(f"Fib(10): {memoized_fibonacci(10)}")
+    print(f"Fib(15): {memoized_fibonacci(15)}")
 
     print("\nTesting spell dispatcher...")
     cast = spell_dispatcher()

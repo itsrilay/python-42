@@ -84,8 +84,8 @@ def mage_stats(mages: list[Mage]) -> PowerStats:
     powers = list(map(lambda m: m["power"], mages))
 
     return {
-        "max_power": max(powers),
-        "min_power": min(powers),
+        "max_power": max(mages, key=lambda m: m["power"])["power"],
+        "min_power": min(mages, key=lambda m: m["power"])["power"],
         "avg_power": round(sum(powers) / len(powers), 2)
     }
 

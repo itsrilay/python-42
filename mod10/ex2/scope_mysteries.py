@@ -19,7 +19,7 @@ def mage_counter() -> Callable[[], int]:
     count = 0
 
     def counter():
-        nonlocal count
+        nonlocal count  # Needed because count is reassigned after
         count += 1
         return count
     return counter

@@ -55,7 +55,7 @@ def power_amplifier(
 
 
 def conditional_caster(
-    condition: Callable[..., Any],
+    condition: Callable[..., bool],
     spell: Callable[..., Any]
 ) -> Callable[..., Any]:
     """
